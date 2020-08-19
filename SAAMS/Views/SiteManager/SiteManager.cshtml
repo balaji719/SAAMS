@@ -1,0 +1,489 @@
+﻿
+@{
+    ViewBag.Title = "SiteManager";
+    Layout = "~/Views/Shared/MainMenu.cshtml";
+}
+@model GMS.ViewModels.FetchClientCustomerBranchDetails
+
+
+@using GMS.ViewModels;
+@{
+    ViewBag.Title = "CustomerMaster";
+    Layout = "~/Views/Shared/MainMenu.cshtml";
+    FetchClientCustomerBranchDetails details = new FetchClientCustomerBranchDetails();
+    details.showClient = "yes";
+    details.showCustomer = "yes";
+    details.showBranch = "yes";
+    details.showClustrer = "yes";
+    details.showSite = "No";
+    details.showDevice = "No";
+    details.showClientMandatory = "yes";
+    details.showCustomerMandatory = "No";
+    details.showBranchMandatory = "No";
+    details.showClustrerMandatory = "No";
+    details.showSiteMandatory = "No";
+    details.showDeviceMandatory = "No";
+
+    //details.Session_ClientId = Convert.ToInt32(HttpContext.Current.Session["ClientId"]);
+    //details.Session_ClientName = Convert.ToString(HttpContext.Current.Session["ClientName"]);
+    //details.Session_CustId = Convert.ToInt32(HttpContext.Current.Session["CustId"]);
+    //details.Session_CustName = Convert.ToString(HttpContext.Current.Session["CustomerName"]);
+    //details.Session_BranchId = Convert.ToInt32(HttpContext.Current.Session["BranchId"]);
+    //details.Session_BranchName = Convert.ToString(HttpContext.Current.Session["BranchName"]);
+    //details.Session_ClustId = Convert.ToInt32(HttpContext.Current.Session["ClusterId"]);
+    //details.Session_ClusterName = Convert.ToString(HttpContext.Current.Session["ClusterName"]);
+    //details.Session_SiteId = Convert.ToInt32(HttpContext.Current.Session["SiteId"]);
+    //details.Session_SiteName = Convert.ToString(HttpContext.Current.Session["SiteName"]);
+}
+<script>
+    $(document).ready(function () {
+        var clientId ;
+        var CustId;
+        var BranchId;
+        var ClusterId;
+        var SiteId;
+        $('td[name = Edit]').click(function () {
+            var $row = $(this).closest("tr");
+            SiteId = $row.find("#nr").text();
+            var SiteName = $row.find("#SiteName").text();
+            ClusterId = $row.find("#ClusterId").text();
+            var ClusterNme = $row.find("#ClusterName").text();
+            BranchId = $row.find("#BranchId").text();
+            var BranchNme = $row.find("#BranchName").text();
+            CustId = $row.find("#CustId").text();
+            var CustNme = $row.find("#CustName").text();
+            clientId = $row.find("#ClientId").text();
+            var ClientNme = $row.find("#CliName").text();
+            var Address = $row.find("#SiteAddr").text();
+            var ContactMobile = $row.find("#ContactMob").text();
+            var MailId = $row.find("#EmailId").text();
+            var ContactPerson = $row.find("#ContactPer").text();
+            $('#Insert_Delete').val(1);
+            $("#HdnClientDD").val(ClientNme + ":" + clientId).change();
+            $("#HdnCustDD").val(CustNme + ":" + CustId).change();
+            $("#HdnBranchDD").val(BranchNme + ":" + BranchId).change();
+            $("#HdnClustrDD").val(ClusterNme + ":" + ClusterId).change();
+            $('#SiteName_Edit').val(SiteName);
+            $('#Address_Edit').val(Address);  
+            $('#MobileNumber_Edit_Sup').val(ContactMobile);
+            $('#Email_Edit_Sup').val(MailId);
+            $('#Name_Edit_Sup').val(ContactPerson);
+             $('#HdnSiteId').val(SiteId);
+            
+        }); 
+        $('#Insert_Update').click(function () {
+            var validation = validateSitemaster()
+             if (validation == false)
+            {
+                return false;
+            }
+
+
+            var SId = document.getElementById('HdnSiteId').value;
+            alert(SId);
+            if (SId == "") {
+
+                SId = 0;
+            }
+
+            var CLSTID = document.getElementById("ClusterDrop").value;
+               $.ajax({
+                        type: "POST",
+                        url: "/SiteManager/Insert_UpdateSite",
+                   contentType: "application/json; charset=utf-8",
+                   data: '{"Insert_Update":"' + $('#Insert_Delete').val() + '","hdnSiteId":"' + SId + '","ClusterId":"' + CLSTID + '","SiteName":"' +  $('#SiteName_Edit').val() + '","SiteAddress":"' +   $('#Address_Edit').val()   + '","SiteContactPerson":"' +   $('#Name_Edit_Sup').val() + '","SiteContactMobile":"' +  $('#MobileNumber_Edit_Sup').val() + '","SiteContactEmailId":"' +   $('#Email_Edit_Sup').val() + '"}',
+
+                        success: function (result, status, xhr) {
+                            alert(result[0]);
+                            window.location.reload();
+                        },
+
+                    });
+
+
+
+        });
+
+         $('td[name=Delete]').click(function () {
+             var $row = $(this).closest("tr");
+            SiteId = $row.find("#nr").text();
+
+             
+            
+             document.getElementById('id11').style.display = 'block';
+           
+         }); 
+
+        $('#Yes_Delete').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/SiteManager/DeleteSite",
+                contentType: "application/json; charset=utf-8",
+                data: '{"SiteId":"' + SiteId + '"}',
+                success: function (result, status, xhr) {
+                    alert(result[0]);
+                    window.location.reload();
+
+                },
+
+            });
+        });
+
+         $('#Add_New').click(function () {
+            document.getElementById('id03').style.display = 'block';
+            $("input:text").val("");
+            $("#Insert_Delete").val(2);
+
+
+
+         });
+          $('#ViewAll').click(function () {
+            window.location.reload();
+
+
+          });
+         $('#DownloadExcel').on('click', function () {
+           
+            $.ajax({
+                type: "POST",
+                url: "/SiteManager/WriteExcel",
+                contentType: "application/json",
+                //data: '{"BranchId":"' + document.getElementById("DDHub").value + '"}',
+                success: function (result, status, xhr) {
+                  
+                   window.location.href = "@Url.RouteUrl(new
+                             { Controller = "SiteManager", Action = "Download" })/?file=" + result;
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+
+         });
+
+
+
+          $('#DownloadPdf').on('click', function () {
+           
+            $.ajax({
+                type: "POST",
+                url: "/SiteManager/SiteManagerPdf",
+                contentType: "application/json",
+                //data: '{"BranchId":"' + document.getElementById("DDHub").value + '"}',
+                success: function (result, status, xhr) {
+                  
+                   window.location.href = "@Url.RouteUrl(new
+                             { Controller = "SiteManager", Action = "Downloadpdf" })/?file=" + result;
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+
+        });
+    });
+
+  
+</script>
+<link href="~/Content/Main.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="~/Content/Responsive.css" rel="stylesheet" />
+
+<section class="sectionBM1">
+    <center>
+        <h3>
+            <b style="color:#1d4769;font-size:16PX;">SITE MASTER</b>
+        </h3>
+    </center>
+    <div class="navbarTwo">
+        <strong>EXISTING SITE</strong>
+        <div class="eps-pdf">
+            <i class="fa fa-file-excel-o excel" style="font-size:15px" id="DownloadExcel"></i>
+            <i class="fa fa-file-pdf-o pdf" style="font-size:15px" id="DownloadPdf"></i>
+        </div>
+    </div>
+    <br />
+    <div class="row branch">
+      
+        <span class="search">
+            <input type="text" id="myInput" placeholder="Search">
+            <span class="fa fa-search"></span>
+        </span>
+        <a href="#"><b style="color:#00778e;text-decoration: underline;" id="ViewAll">VIEW ALL</b></a>
+        <a href="#" class="w3-button   w3-round-large sub-btn" style="float:right;" id="Add_New">Add New</a>
+    </div>
+    <div class="row search-font">
+        <p>You may search on (Client/Customer/Branch/Cluster/Site/Contact Person/Mobile Number/EmailId)</p>
+    </div>
+    <div style="overflow-x:auto;">
+        <table class="tableOne">
+            <thead>
+                <tr>
+
+                    <th style="width:5%" scope="col">SlNo</th>
+                    <th hidden>SITEID</th>
+                    <th scope="col">CLIENT</th>
+                    <th scope="col">CUSTOMER</th>
+                    <th scope="col">BRANCH</th>
+                    <th scope="col">CLUSTER</th>
+                    <th scope="col">SITE</th>
+                    <th scope="col">CONTACT PERSON NAME</th>
+                    <th scope="col"> MOBILE NUMBER</th>
+                    <th scope="col">EMAILID</th>
+                    <th scope="col" colspan="2">ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody id="myTable" style="background-color:white">
+                @{int SlNo = 0;}
+                @foreach (var d in ViewBag.sites)
+                {
+                    SlNo = SlNo + 1;
+                    <tr>
+                        <td scope="row">@SlNo</td>
+                        <td id="nr" hidden>@d.SiteId</td>
+                        <td id="CliName">@d.ClientName</td>
+                        <td id="CustName">@d.CustName</td>
+                        <td id="BranchName">@d.BranchName</td>
+                        <td id="ClusterName">@d.ClusterName</td>
+                        <td id="SiteName">@d.SiteName</td>
+                        <td id="SiteAddr">@d.SiteAddress</td>
+                        <td id="ContactMob">@d.ContactMobile</td>
+                        <td id="EmailId">@d.ContactEmailId</td>
+                        <td id="ClientId" hidden>@d.ClientId</td>
+                        <td id="CustId" hidden>@d.CustId</td>
+                        <td id="BranchId" hidden>@d.BranchId</td>
+                        <td id="ClusterId" hidden>@d.ClusterId</td>
+                        <td id="ContactPer" hidden>@d.ContactPerson</td>
+                        <td name="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="document.getElementById('id03').style.display='block'"></i> </td>
+                        <td name="Delete">  <i class="fa fa-times-circle-o" aria-hidden="true"></i></td>
+
+                    </tr>
+                }
+            </tbody>
+
+
+
+        </table>
+    </div>
+
+    <div id="id03" class="w3-modal" style="padding-top:45px;">
+        <div class="w3-modal-content device-mod"  >
+
+            <header class="w3-container" style="        background: #00778e;
+    color: white;">
+                <span onclick="document.getElementById('id03').style.display='none'"
+                      class="w3-button w3-display-topright modal-close" style="background: white !important;
+    color: black !important;">&times;</span>
+                <h5>SITE DETAILS</h5>
+                @*<button class="user-details-head w3-button" onclick="SiteManager('SiteDetails')">SiteDetails</button>
+                    <button class=" w3-button user-details-head" onclick="SiteManager('SupervisorDetails')">Supervisor Details</button>*@
+            </header>
+          
+            <div class="w3-container res-modal modal-inner-pd">
+                <input id="Insert_Delete" hidden />
+                <div class="w3-row" style="border-radius:5px;padding: 2% 2%;">
+                    <div class="w3-col s12  w3-center ">
+                        <input id="HdnSiteId" hidden />
+                        <table>
+
+
+                            @Html.Partial("DropdownForAllLevels", details)
+
+                            <tr>
+                                <th><label for="Site Name">Site Name</label></th>
+                                <th>
+                                    <input type="text" id="SiteName_Edit" name="Site Name" style="width:100%;" class="form-control1 input">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th><label for="Site Address">Site Address</label></th>
+                                <th>
+                                    <textarea id="Address_Edit"></textarea>
+                                </th>
+                            </tr>
+                         
+                            @Html.Partial("CountryStateCityDD")
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr>
+                                <th><label for="" style="text-decoration:underline;">Contact Person Details</label></th>
+
+                            </tr>
+                            <tr>
+                                <th><label for="Name">Name</label></th>
+                                <th>
+                                    <input type="text" id="Name_Edit_Sup" name="Name" style="width:100%;" class="form-control1 input">
+
+                                </th>
+                            </tr>
+                            <tr>
+                                <th><label for="Email">Email Id</label></th>
+                                <th>
+                                    <input type="email" id="Email_Edit_Sup" name="Email" style="width:100%;" class="form-control1 input">
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th><label for="Mobile Number">Mobile Number</label></th>
+                                <th>
+                                    <input type="text" id="MobileNumber_Edit_Sup" name="Mobile Number" style="width:100%;" class="form-control1 input">
+                                </th>
+                            </tr>
+
+                        </table>
+                        <br />
+                      <button class="w3-button    w3-round-large " id="Insert_Update" style="    background: #00778e;color:white;">Submit</button>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+            
+              
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="id11" class="w3-modal">
+        <div class="w3-modal-content device-mod">
+            <header class="w3-container" style="background:#00B8BA;color:white;">
+                <span onclick="document.getElementById('id11').style.display='none'"
+                      class="w3-button w3-display-topright modal-close">&times;</span>
+                <h5><b>Close</b></h5>
+            </header>
+            <div class="w3-container">
+                <div class="w3-row">
+                    <div class="w3-col s12  w3-center">
+                        <h5>Are you sure you want to delete?</h5>
+                        <button class="w3-button  w3-border  w3-round-large sub-btn" id="Yes_Delete">Yes</button>  <button class="w3-button  w3-border  w3-round-large sub-btn">No</button>
+
+                        <br />
+                    </div>
+
+                </div>
+
+                <br />
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+ 
+
+    function SiteManager(cityName) {
+        var i;
+        var x = document.getElementsByClassName("site");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        document.getElementById(cityName).style.display = "block";
+    }
+</script>
+<script>
+           $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+           });
+    
+    function validateSitemaster()
+{
+
+        var ClientnameVal = document.getElementById("DDClient").value;
+
+        alert(ClientnameVal);
+        if (ClientnameVal == "0") {
+            alert("*Enter Client Name correctly");
+            return false;
+        }
+
+        var Customername;
+        Customername = document.getElementById("custdrop").value;
+        alert(Customername);
+
+        if (Customername == "0") {
+            alert("*enter Customer Name correctly");
+            return false;
+        }
+
+        var BranchName;
+        BranchName = document.getElementById("BranchDrop").value;
+
+        if (BranchName == "0") {
+            alert("*enter Branch Name correctly");
+            return false;
+        }
+
+   
+    var ClusterName;
+    ClusterName = document.getElementById("ClusterDrop").value;
+
+
+    if (ClusterName == "0" ) {
+        alert("*enter Cluster Name correctly");
+        return false;
+    }
+   
+
+     var SiteName;
+     SiteName = document.getElementById("SiteName_Edit").value;
+
+
+    if (SiteName == "" || SiteName.length <= 1) {
+        alert("*enter Site Name correctly");
+        return false;
+    }
+  
+    var addrs;
+    addrs = document.getElementById("Address_Edit").value;
+    if (addrs == "" || addrs.length <= 1) {
+        alert("*enter addres correctly");
+        return false;
+    }
+     var ContactPerson;
+    ContactPerson = document.getElementById("Name_Edit_Sup").value;
+    if (ContactPerson == "" || ContactPerson.length <= 1) {
+        alert("*enter contact Person Name correctly");
+        return false;
+        }
+
+         var mailid;
+    mailid = document.getElementById("Email_Edit_Sup").value;
+    if (mailid == "" || mailid.length <= 1) {
+        alert("*enter mailid correctly");
+        return false;
+    }
+
+    var phono;
+    phono = document.getElementById("MobileNumber_Edit_Sup").value;
+
+    var no = /[0-9]/;
+    
+    if (phono == "") {
+        alert("*phoneno should be correct");
+        return false;
+    }
+
+
+
+
+
+}
+
+</script>
+

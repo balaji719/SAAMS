@@ -1,0 +1,536 @@
+﻿@model GMS.ViewModels.FetchClientCustomerBranchDetails
+@{
+
+}
+<head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <style>
+        input::-webkit-calendar-picker-indicator {
+            opacity: 100;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#DDClient").empty();
+            $("#custdrop").empty();
+            $("#BranchDrop").empty();
+            $("#ClusterDrop").empty();
+            $("#SiteDrop").empty();
+            $("#DDClient").append('"<option Value="0">--SELECT--</option>');
+            $("#custdrop").append('"<option Value="0">--SELECT--</option>');
+            $("#BranchDrop").append('"<option Value="0">--SELECT--</option>');
+            $("#ClusterDrop").append('"<option Value="0">--SELECT--</option>');
+            $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+            var DDClientid;
+            var DDCustId;
+            var DDBranchid;
+            var DDClusterid;
+            var DDSiteid;
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/AllLevelDD/DDClient",
+                contentType: "application/json",
+                success: function (result, status, xhr) {
+                    if (result.length == 1) {
+                        var CliOption = document.createElement('option');
+                        CliOption.innerHTML = result[0].ClientName;
+                        CliOption.value = result[0].ClientId;
+                        CliOption.selected = true;
+                        document.getElementById("DDClient").appendChild(CliOption);
+                        $('#HdnClient').trigger('change');
+                    }
+                    else {
+                        for (var i = 0; i < result.length; i++) {
+                            var CliOption = document.createElement('option');
+                            CliOption.innerHTML = result[i].ClientName;
+                            CliOption.value = result[i].ClientId;
+                            document.getElementById("DDClient").appendChild(CliOption);
+                        }
+                    }
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+
+
+
+
+            jQuery("#DDClient").on("input", function () {
+                $("#custdrop").empty();
+                $("#BranchDrop").empty();
+                $("#ClusterDrop").empty();
+                $("#SiteDrop").empty();
+                $("#custdrop").append('"<option Value="0">--SELECT--</option>');
+                $("#BranchDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#ClusterDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/AllLevelDD/DDCustomer",
+                            contentType: "application/json",
+                            data: '{"ClientId":"' + document.getElementById("DDClient").value + '"}',
+                            success: function (result, status, xhr) {
+                                if (result.length == 1) {
+                                    var CustOpt = document.createElement('option');
+                                    CustOpt.innerHTML = result[0].CustName;
+                                    CustOpt.value = result[0].CustId;
+                                    CustOpt.selected = true;
+                                    document.getElementById("custdrop").appendChild(CustOpt);
+                                    $('#HdnCustomer').trigger('change');
+                                }
+                                else {
+                                    for (var i = 0; i < result.length; i++) {
+                                    var CustOpt = document.createElement('option');
+                                    CustOpt.innerHTML = result[i].CustName;
+                                    CustOpt.value = result[i].CustId;
+                                    document.getElementById("custdrop").appendChild(CustOpt);
+                                }
+                                }
+
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                            }
+                        });
+
+            });
+
+            jQuery("#custdrop").on("input", function () {
+                $("#BranchDrop").empty();
+                $("#ClusterDrop").empty();
+                $("#SiteDrop").empty();
+                $("#BranchDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#ClusterDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/AllLevelDD/DropdownBranch",
+                        contentType: "application/json",
+                        data: '{"CustId":"' + document.getElementById("custdrop").value + '"}',
+                        success: function (result, status, xhr) {
+                            if (result.length == 1) {
+                                var Branchopt = document.createElement('option');
+                                Branchopt.innerHTML = result[0].BranchName;
+                                Branchopt.value = result[0].BranchId;
+                                Branchopt.selected = true;
+                                document.getElementById("BranchDrop").appendChild(Branchopt);
+                                 $('#HdnBranch').trigger('change');
+                            }
+                            else {
+                              for (var i = 0; i < result.length; i++) {
+                                var Branchopt = document.createElement('option');
+                                Branchopt.innerHTML = result[i].BranchName;
+                                Branchopt.value = result[i].BranchId;
+                                document.getElementById("BranchDrop").appendChild(Branchopt);
+                              }
+                            }
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                        }
+                    });
+
+            });
+
+            jQuery("#BranchDrop").on("input", function () {
+                $("#ClusterDrop").empty();
+                $("#SiteDrop").empty();
+                $("#ClusterDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+               
+                    $.ajax({
+                        type: "POST",
+                        url: "/AllLevelDD/DropdownCluster",
+                        contentType: "application/json",
+                        data: '{"BranchId":"' + document.getElementById("BranchDrop").value + '"}',
+                        success: function (result, status, xhr) {
+                            if (result.lenhth == 1) {
+                                var ClustOpt = document.createElement('option');
+                                ClustOpt.innerHTML = result[0].ClusterName;
+                                ClustOpt.value = result[0].ClusterId;
+                                ClustOpt.selected = true;
+                                document.getElementById("ClusterDrop").appendChild(ClustOpt);
+                               $('#HdnCluster').trigger('change');
+                            }
+                            else {
+                                for (var i = 0; i < result.length; i++) {
+                                var ClustOpt = document.createElement('option');
+                                ClustOpt.innerHTML = result[i].ClusterName;
+                                ClustOpt.value = result[i].ClusterId;
+                                document.getElementById("ClusterDrop").appendChild(ClustOpt);
+                            }
+                            }
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                        }
+                    });
+                
+               
+
+            });
+
+            jQuery("#ClusterDrop").on("input", function () {
+                $("#SiteDrop").empty();
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+                
+                    $.ajax({
+                        type: "POST",
+                        url: "/AllLevelDD/DropdownSite",
+                        contentType: "application/json",
+                        data: '{"ClusterId":"' + document.getElementById("ClusterDrop").value + '"}',
+                        success: function (result, status, xhr) {
+                            if (result.length == 1) {
+                                var SiteOpt = document.createElement('option');
+                                SiteOpt.innerHTML = result[0].SiteName;
+                                SiteOpt.value = result[0].SiteId;
+                                SiteOpt.selected = true;
+                                document.getElementById("SiteDrop").appendChild(SiteOpt);
+                            }
+                            else {
+                             for (var i = 0; i < result.length; i++) {
+                                var SiteOpt = document.createElement('option');
+                                SiteOpt.innerHTML = result[i].SiteName;
+                                SiteOpt.value = result[i].SiteId;
+                                document.getElementById("SiteDrop").appendChild(SiteOpt);
+                             }
+                            }
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                        }
+                    });
+                
+               
+
+            });
+
+            @*jQuery("#SiteDrop").on("input", function () {
+
+                var SiteIdvalue = document.getElementById("SiteDrop").value;
+                ClusterName = document.getElementById("ClusterDrop").value;
+                if (@Model.Session_SiteId=="0") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/AllLevelDD/DropdownEmployee",
+                        contentType: "application/json",
+                        data: '{"SiteId":"' + SiteIdvalue + '"}',
+                        success: function (result, status, xhr) {
+                            for (var i = 0; i < result.length; i++) {
+                                $("#DroEmpl").append('"<option value="' + result[i] + '">')
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                        }
+                    });
+                }
+            });*@
+
+
+
+
+            $("#HdnClient").on("change",function () {
+
+
+                $("#custdrop").empty();
+                $("#BranchDrop").empty();
+                $("#ClusterDrop").empty();
+                $("#SiteDrop").empty();
+
+                $("#custdrop").append('"<option Value="0">--SELECT--</option>');
+                $("#BranchDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#ClusterDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+                $.ajax({
+                            type: "POST",
+                            url: "/AllLevelDD/DDCustomer",
+                            contentType: "application/json",
+                            data: '{"ClientId":"' + document.getElementById("DDClient").value + '"}',
+                            success: function (result, status, xhr) {
+                               if (result.length == 1) {
+                                    var CustOpt = document.createElement('option');
+                                    CustOpt.innerHTML = result[0].CustName;
+                                    CustOpt.value = result[0].CustId;
+                                    document.getElementById("custdrop").appendChild(CustOpt);
+                               }
+                                for (var i = 0; i < result.length; i++) {
+                                    var CustOpt = document.createElement('option');
+                                    CustOpt.innerHTML = result[i].CustName;
+                                    CustOpt.value = result[i].CustId;
+                                    document.getElementById("custdrop").appendChild(CustOpt);
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                            }
+                });
+
+            });
+
+            $("#HdnCustomer").change(function () {
+                 alert("Fill Single branch");
+                $("#ClusterDrop").empty();
+                $("#SiteDrop").empty();
+
+                $("#ClusterDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/AllLevelDD/DropdownBranch",
+                        contentType: "application/json",
+                        data: '{"CustId":"' + document.getElementById("custdrop").value + '"}',
+                        success: function (result, status, xhr) {
+                            if (result.length == 1) {
+                                var Branchopt = document.createElement('option');
+                                Branchopt.innerHTML = result[0].BranchName;
+                                Branchopt.value = result[0].BranchId;
+                                Branchopt.selected = true;
+                                document.getElementById("BranchDrop").appendChild(Branchopt);
+
+                            }
+
+                            for (var i = 0; i < result.length; i++) {
+                                var Branchopt = document.createElement('option');
+                                Branchopt.innerHTML = result[i].BranchName;
+                                Branchopt.value = result[i].BranchId;
+                                document.getElementById("BranchDrop").appendChild(Branchopt);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                        }
+                    });
+            });
+
+            $("#HdnBranch").change(function () {
+               $("#SiteDrop").empty();              
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+                $.ajax({
+                    type: "POST",
+                    url: "/AllLevelDD/DropdownCluster",
+                    contentType: "application/json",
+                    data: '{"BranchId":"' + document.getElementById("BranchDrop").value + '"}',
+                    success: function (result, status, xhr) {
+                        alert(result.length);
+                        if (result.lenhth == 1) {
+                            var ClustOpt = document.createElement('option');
+                            ClustOpt.innerHTML = result[0].ClusterName;
+                            ClustOpt.value = result[0].ClusterId;
+                            ClustOpt.selected = true;
+                            document.getElementById("ClusterDrop").appendChild(ClustOpt);
+                        }
+                        for (var i = 0; i < result.length; i++) {
+                            var ClustOpt = document.createElement('option');
+                            ClustOpt.innerHTML = result[i].ClusterName;
+                            ClustOpt.value = result[i].ClusterId;
+                            document.getElementById("ClusterDrop").appendChild(ClustOpt);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                    }
+                });
+            });
+
+            $("#HdnCluster").change(function () {
+                              
+                 $.ajax({
+                        type: "POST",
+                        url: "/AllLevelDD/DropdownSite",
+                        contentType: "application/json",
+                        data: '{"ClusterId":"' + document.getElementById("ClusterDrop").value + '"}',
+                     success: function (result, status, xhr) {
+                         if (result.length == 1) {
+                             var SiteOpt = document.createElement('option');
+                             SiteOpt.innerHTML = result[0].SiteName;
+                             SiteOpt.value = result[0].SiteId;
+                             SiteOpt.selected = true;
+                             document.getElementById("SiteDrop").appendChild(SiteOpt);
+                         }
+                         else {
+                             for (var i = 0; i < result.length; i++) {
+                                var SiteOpt = document.createElement('option');
+                                SiteOpt.innerHTML = result[i].SiteName;
+                                SiteOpt.value = result[i].SiteId;
+
+                                document.getElementById("SiteDrop").appendChild(SiteOpt);
+                             }
+                         }
+                           
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                        }
+                 });
+            });
+
+
+
+              $("#HdnClientDD").change(function () {
+                $("#DDClient").empty();
+                $("#custdrop").empty();
+                $("#BranchDrop").empty();
+                $("#ClusterDrop").empty();
+                $("#SiteDrop").empty();
+                $("#DDClient").append('"<option Value="0">--SELECT--</option>');
+                $("#custdrop").append('"<option Value="0">--SELECT--</option>');
+                $("#BranchDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#ClusterDrop").append('"<option Value="0">--SELECT--</option>');
+                $("#SiteDrop").append('"<option Value="0">--SELECT--</option>');
+                var ClientValues = document.getElementById("HdnClientDD").value;
+                var ClientRes = ClientValues.split(":");
+                var CliOption = document.createElement('option');
+                CliOption.innerHTML = ClientRes[0];
+                CliOption.value = ClientRes[1];
+                CliOption.selected = 'true';
+                document.getElementById("DDClient").appendChild(CliOption);
+            });
+
+            $("#HdnCustDD").change(function () {
+                var CustomerValues = document.getElementById("HdnCustDD").value;
+                var CustomerRes = CustomerValues.split(":");
+                var CusOption = document.createElement('option');
+                CusOption.innerHTML = CustomerRes[0];
+                CusOption.value = CustomerRes[1];
+                CusOption.selected = 'true';
+                document.getElementById("custdrop").appendChild(CusOption);
+            });
+
+            $("#HdnBranchDD").change(function () {
+                var BranchValues = document.getElementById("HdnBranchDD").value;
+                var BranchRes = BranchValues.split(":");
+                var BranOption = document.createElement('option');
+                BranOption.innerHTML = BranchRes[0];
+                BranOption.value = BranchRes[1];
+                BranOption.selected = 'true';
+                document.getElementById("BranchDrop").appendChild(BranOption);
+            });
+
+            $("#HdnClustrDD").change(function () {
+                var ClusterValues = document.getElementById("HdnClustrDD").value;
+                var ClusterRes = ClusterValues.split(":");
+                var ClusOption = document.createElement('option');
+                ClusOption.innerHTML = ClusterRes[0];
+                ClusOption.value = ClusterRes[1];
+                ClusOption.selected = 'true';
+                document.getElementById("ClusterDrop").appendChild(ClusOption);
+            });
+
+            $("#HdnSiteDD").change(function () {
+               
+                var SiteValues = document.getElementById("HdnSiteDD").value;
+                var SiteRes = SiteValues.split(":");
+                var SiteOption = document.createElement('option');
+                SiteOption.innerHTML = SiteRes[0];
+                SiteOption.value = SiteRes[1];
+                SiteOption.selected = 'true';
+                document.getElementById("SiteDrop").appendChild(SiteOption);
+            });
+
+
+        });
+
+
+    </script>
+
+</head>
+
+
+
+<style>
+    .red {
+        color: red;
+    }
+</style>
+
+
+<input id="HdnCli" type="hidden" />
+<input id="HdnClient" type="hidden" />
+<input id="HdnCustomer" type="hidden" />
+<input id="HdnBranch" type="hidden" />
+<input id="HdnCluster" type="hidden" />
+<input id="HdnSite" type="hidden" />
+<input id="hdnEmpl" type="hidden" />
+
+<input id="HdnClientDD" hidden />
+<input id="HdnCustDD" hidden />
+<input id="HdnBranchDD" hidden/>
+<input id="HdnClustrDD" hidden />
+<input id="HdnSiteDD" hidden />
+<input id="HdnEmplDD" hidden />
+
+
+<tr id="td_ShowClient" style='display:@(Model.showClient == "yes" ? "":"none");'>
+    <th style="text-align:left;">
+        <label>Client<span id="spn_ShowClient" style='display:@(Model.showClientMandatory == "yes" ? "":"none");' class="red">*</span></label>
+    </th>
+    <td >
+        <select class="form-control form-control1" type="text" name="ClientId" id="DDClient"></select>
+    </td>
+</tr>
+
+<tr id="td_ShowCustomer" style='display:@(Model.showCustomer == "yes" ? "":"none");'>
+    <th style="text-align:left;">
+        <label>Customer Name<span id="spn_ShowCustomer" style='display:@(Model.showCustomerMandatory == "yes" ? "":"none");' class="red">*</span></label>
+    </th>
+    <td >
+
+        <select class="form-control form-control1" type="text" name="CustomerId" id="custdrop" >
+            @*<option id="testcust" value="@Model.CustomerName" selected>@Model.CustomerName</option>*@
+        </select>
+    </td>
+</tr>
+<tr id="td_ShowBranch" style='display:@(Model.showBranch == "yes" ? "":"none");'>
+    <th>
+        <label>Branch Name<span id="spn_ShowBranch" style='display:@(Model.showBranchMandatory == "yes" ? "":"none");' class="red">*</span></label>
+    </th>
+    <td >
+        <select class="form-control form-control1" type="text" name="BranchId" id="BranchDrop" >
+            @* <option value="0" selected>--SELECT--</option>*@
+        </select>
+    </td>
+</tr>
+
+<tr id="ShowCluster" style='display:@(Model.showClustrer == "yes" ? "":"none");'>
+    <th>
+        <label>Cluster Name<span id="spn_ShowCluster" style='display:@(Model.showClustrerMandatory == "yes" ? "":"none");' class="red">*</span></label>
+    </th>
+    <td >
+        <select class="form-control form-control1" type="text" name="ClusterId" id="ClusterDrop">
+            @*<option value="0" selected>--SELECT--</option>*@
+        </select>
+    </td>
+</tr>
+
+<tr id="ShowSite" style='display:@(Model.showSite == "yes" ? "":"none");'>
+    <th>
+        <label>Site Name:<span id="spn_ShowSite" style='display:@(Model.showSiteMandatory == "yes" ? "":"none");' class="red">*</span></label>
+    </th>
+    <td >
+        <select class="form-control form-control1" type="text" name="SiteId" id="SiteDrop" >
+            @*<option value="0" selected>--SELECT--</option>*@
+        </select>
+    </td>
+</tr>
+
+@*<div>
+        <label>Employee Name:</label>
+        <input class="form-control" type="text" list="DroEmpl" name="EmployeeDropdown" id="EmplDrop" style="width:300px">
+        <datalist id="DroEmpl"></datalist>
+    </div>*@
+

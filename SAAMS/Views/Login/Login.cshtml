@@ -1,0 +1,103 @@
+﻿@model SAAMS.Models.LoginINM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="~/Content/Main.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @*<script>
+        $(document).ready(function () {
+            $('#loginBtn').on('click', function () {
+                var UserName = document.getElementById('Uname').value;
+                var Passwrd = document.getElementById('Pwd').value;
+
+                $.ajax
+                    ({
+                        type: "POST",
+                        url: "/Login/LoginIn",
+                        contentType: "application/json; charset=utf-8",
+                        data: '{"UserName":"' + UserName + '","Passwrd":"' + Passwrd + '"}',
+                        success: function (result, status, xhr) {
+
+
+                        },
+
+                    });
+            });
+        });
+    </script>*@
+</head>
+<body class="log-image">
+    <div class="container log">
+        <div class="row">
+            <div class="col-md-6 login-form-1">
+
+                <form id="test">
+                    <div class="form-group">
+
+                        <img src="~/Image/logo new.gif" class="avatar" /> <span> <strong> Company Name</strong></span>
+
+                    </div>
+                    <center>
+                        <div class="form-group">
+                            <img src="~/Image/icon.png" class="web-img" />
+                        </div>
+                    </center>
+                    <center><h5>WEBSITE NAME</h5></center>
+
+                </form>
+            </div>
+           
+            <div class="col-md-6 login-form-2">
+                <center><label style="color:red;">@TempData["StatusMsg"]</label></center>
+                <form method="post" action="/Login/LoginIn">
+                    <div class="form-group">
+                        <label><strong id="Uname">User Name</strong></label>
+                        @Html.TextBoxFor(expression: model => model.UserName, htmlAttributes: new { @class = "form-control", @Name = "UserName" })
+                        @Html.ValidationMessageFor(expression: model => model.UserName, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+
+                        @*<input type="text" class="form-control" placeholder="" value="" name="" />*@
+                    </div>
+                    <div class="form-group">
+                        <label><strong id="Pwd">Password</strong></label>
+                        @Html.PasswordFor(expression: model => model.Pwd, htmlAttributes: new { @class = "form-control", @Name = "Pwd" })
+                        @Html.ValidationMessageFor(expression: model => model.Pwd, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                        @*<input type="password" class="form-control" placeholder="" value="" />*@
+
+                    </div>
+
+
+                    <div class="form-group log-rem">
+                        <label>
+                            <input type="checkbox"><a href="#" class="ForgetPwd"> Remember me</a>
+
+                        </label>
+                    </div>
+                    <br /><br />
+                    <center>
+                        <div class="form-group">
+                            <button type="submit" href="#" id="loginBtn" class="btnSubmit">LOGIN</button>
+
+                        </div>
+                    </center>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+

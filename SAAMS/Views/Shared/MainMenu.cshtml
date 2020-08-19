@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/Main.css" rel="stylesheet" />
+    <link href="~/Content/Menu.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        $(document).ready(function () {
+            //$("#rangeDate").flatpickr({
+
+            //    dateFormat: "m-d-Y",
+
+            //});
+        });
+    </script>
+
+</head>
+<body>
+
+
+    <div class="header">
+
+        <a href="#" style="text-decoration:none;">
+
+
+            <img src="~/Image/icon.png" style="    width: 6%;
+    margin: 0px 6px;" />
+            <span><strong>Website Name</strong></span>
+        </a>
+        <div class="w3-dropdown-hover" style="width: 16%;">
+            <a> <img src="~/Image/icon.png"></a>
+            <div class="w3-dropdown-content">
+
+                <div class="w3-dropdown-content">
+                    <div class="w3-dropdown-content w3-bar-block w3-border" style="    padding: 8px 14px;">
+                        <div class="w3-row">
+                            <div class="w3-col s4  w3-center">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th><i class="fa fa-user" style="font-size:70px;"></i></th>
+
+                                        </tr>
+
+                                    </thead>
+
+
+                                </table>
+                            </div>
+                            <div class="w3-col s3  w3-center">
+                                <table>
+                                    <thead>
+                                        <tr>
+
+                                            <th><label style="color:#00778e;">Naveen</label></th>
+                                        </tr>
+                                        <tr>
+
+                                            <th><label style="color:#00778e;">Naveen@trikntek.com</label></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
+                        <center>
+                            <a href="#" class="w3-button   w3-round-large sub-btn">Log Out <i class="fa fa-sign-out" style="font-size:15px;display:inline-block;    vertical-align: text-bottom;"></i></a>
+                        </center>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Start Navigation Bar -->
+        @*<div class="mobile-menu">
+            <i class="fa fa-bars fa-3x js-menu-icon"></i>
+        </div>*@
+        <nav class="navbar js-navbar">
+            <ul class="menu">
+                <li style="margin-top: -4px;"> <a><i class="fa fa-home" style="font-size:24px;"></i></a></li>
+                <li>
+                    <a class="hasDropdown" href="#">MODULES <i class="fa fa-angle-down"></i></a>
+
+                    <ul class="container secondLevel">
+                        <div class="container__list">
+                            <div class="container__listItem">
+                                <a class="cool-link" href="#">EPS</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link" href="#">i-EMS</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link">OFFSITE MANAGEMENT</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link">GUARD PATROL</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link">LEAVE MANAGEMENT</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link">INCIDENT MANAGEMENT</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link">ABSCONDER MANAGEMENT</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link">SOS</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link">AUTO SCHEDULING</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link"> RESIGNATION </a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link">CONVEYANCE</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a href="#" class="cool-link"> MANAGE DEVICE</a>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </ul>
+                </li>
+                <li>
+                    <a class="hasDropdown" href="#">MASTERS <i class="fa fa-angle-down"></i></a>
+                    <ul class="container has-multi secondLevel">
+                        <div class="container__list container__list-multi">
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/ClientMaster/ClientMaster">CLIENT</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/CustomerMaster/CustomerMaster">CUSTOMER</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/branchmaster/branchmaster">BRANCH</a>
+                            </div>
+
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/ClusterMaster/ClusterMaster">CLUSTER</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/SiteManager/SiteManager">SITE</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/EmployeeAllocation/EmployeeAllocation">EMPLOYEE</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/UserMaster/UserMaster">USER</a>
+                            </div>
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/DesignationMaster/DesignationMaster"> DESIGNATION</a>
+                            </div>
+
+
+                            @*<div class="container__listItem">
+                                <a class="cool-link"> EMPLOYEE BULK UPLOAD</a>
+                            </div>*@
+                            @*<div class="container__listItem">
+                                <a class="cool-link">DEVICE ALLOCATION</a>
+                            </div>*@
+                            @*<div class="container__listItem">
+                                <a class="cool-link">CONVEYANCE</a>
+                            </div>*@
+
+                            <div class="container__listItem">
+                                <a class="cool-link" href="/ManageDevice/ManageDevice"> MANAGE DEVICE</a>
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+                    </ul>
+                </li>
+                @*<span>
+                    <button class="eps-head-btn"><strong>EPS</strong></button>
+                </span>
+                <span>
+                    <button class="eps-head-btn"><strong>OMA</strong></button>
+                </span>*@
+                @*<span>
+                    <span class="search">
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search">
+                        <span class="fa fa-search"></span>
+                    </span>
+                </span>*@
+                <li style="position: relative;
+    right: -64%;">
+
+                    <a class="supportbtn" href="#"><strong style="color:white;">SUPPORT </strong></a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <!-- End Navigation Bar -->
+
+    </div>
+
+
+
+    <div>
+
+        @RenderBody()
+    </div>
+    <script>
+    //    $('.menu').find('li').click(function(){
+    //   //removing the previous selected menu state
+    //   $('.menu').find('li').removeClass('active1');
+        
+    //    //is this element from the second level menu?
+    //    if($(this).closest('ul').hasClass('secondLevel')){
+    //         $(this).parents('a').addClass('active1');
+            
+    //    this is a parent element
+    //    }else{
+    //         $(this).addClass('active1');
+    //    }
+    //});
+ $(".navbar .menu  li a").each(function () {
+            if ((window.location.pathname.indexOf($(this).attr('href'))) > -1) {
+
+                $(this).addClass('active1');
+              
+            }
+
+
+             if ($(".navbar .menu  li a").hasClass('active1')) {
+                
+                $(this).closest("ul").siblings('a').addClass('active1');
+            }
+            
+        });
+
+    </script>
+</body>
+</html>
+

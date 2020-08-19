@@ -1,0 +1,3 @@
+DeviceType,DeviceIMEINo,DevicePhone,Carrier,SupervisorPwd,SuperUserPwd,EmailId,HardwareVersion,WarrantyStartDate,WarrantyEndDate,Remarks,RemoteControlNumber,DeviceAlertPhone1,DeviceAlertPhone2,DeviceAlertEmail1,DeviceAlertEmail2,Location
+Attendance,9.12E+14,1111111111,Vodafone,123,145,,12345,21-10-2019,manjitkumar@eruna.co.uk,JP4G,,,,,,
+Enrollment,R911512852280447,1111111111,Vodafone,123,,,12345,21-10-2019,manjitkumar@eruna.co.uk,JP4G,,,,,,

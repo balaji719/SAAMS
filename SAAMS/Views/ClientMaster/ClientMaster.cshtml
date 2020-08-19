@@ -1,0 +1,416 @@
+﻿
+@{
+    ViewBag.Title = "ClientMaster";
+    Layout = "~/Views/Shared/MainMenu.cshtml";
+}
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+@*<link href="~/Content/Menu.css" rel="stylesheet" />*@
+<link href="~/Content/Main.css" rel="stylesheet" />
+<link href="~/Content/responsive.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $('td[name = Edit]').click(function () {
+
+            var $row = $(this).closest("tr");
+            var $text = $row.find("#nr").text();
+            var ClientName = $row.find("#ClientName").text();
+            var AuthPersonContactNo = $row.find("#AuthContactNo").text();
+            var ClientAddr = $row.find("#ClientName").text();
+            var AuthPerName = $row.find("#AuthPerName").text();
+            var AuthContactNo = $row.find("#AuthContactNo").text();
+            var AuthMailId = $row.find("#AuthMailId").text();
+
+            $("#ClientId_Hdn").val($text);
+            $("#HdnEdit_Insert").val(1);
+            $("#ClientNme_EditTxt").val(ClientName);
+            $("#clientPhno").val(AuthPersonContactNo);
+            $("#clientAddr").val(ClientAddr);
+            $("#AuthPerName_Edit").val(AuthPerName);
+            $("#AuthPerNo").val(AuthContactNo);
+            $("#AuthMailId_Edit").val(AuthMailId);
+
+
+        });
+        $('#Insert_UpdateBtn').click(function () {
+             var validation = validateClientMaster();
+            if (validation == false)
+            {
+                return false;
+            }
+            var Cid = document.getElementById('ClientId_Hdn').value;
+            if (Cid == "") {
+                Cid = 0;
+                $("#ClientId_Hdn").val(Cid);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/ClientMaster/Insert_UpdateClient",
+                contentType: "application/json; charset=utf-8",
+                data: '{"hdnvalue":"' + $("#HdnEdit_Insert").val() + '","ClientId":"' + $("#ClientId_Hdn").val() + '","ClientName":"' + $("#ClientNme_EditTxt").val() + '","ClientPhNo":"' + $("#clientPhno").val() + '","ClientAddr":"' + $("#clientAddr").val() + '","AuthPersonName":"' + $("#AuthPerName_Edit").val() + '","AuthPersonNo":"' + $("#AuthPerNo").val() + '","AuthPersonMailid":"' + $("#AuthMailId_Edit").val() + '" }',
+
+                success: function (result, status, xhr) {
+                    alert(result[0]);
+                    window.location.reload();
+
+                },
+
+            });
+
+        });
+
+        $('td[name=Delete]').click(function () {
+
+            var $row = $(this).closest("tr");
+            var $text = $row.find("#nr").text();
+            $("#ClientId_Hdn").val($text);
+            document.getElementById('id11').style.display = 'block';
+
+        });
+        $('#Yes_Delete').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/ClientMaster/DeleteClient",
+                contentType: "application/json; charset=utf-8",
+                data: '{"id":"' + $("#ClientId_Hdn").val() + '"}',
+                success: function (result, status, xhr)
+                {
+                    alert(result[0]);
+                    window.location.reload();
+                },
+
+            });
+
+
+        });
+
+        $('#Add_New').click(function () {
+            document.getElementById('id10').style.display = 'block';
+            $("input:text").val("");
+            $("#HdnEdit_Insert").val(2);
+
+        });
+
+
+        $('#ViewAll').click(function () {
+            window.location.reload();
+        }); 
+
+      
+         $('#DownloadExcel').on('click', function () {
+           
+            $.ajax({
+                type: "POST",
+                url: "/ClientMaster/WriteExcel",
+                contentType: "application/json",
+                //data: '{"BranchId":"' + document.getElementById("DDHub").value + '"}',
+                success: function (result, status, xhr) {
+                  
+                   window.location.href = "@Url.RouteUrl(new
+                             { Controller = "ClientMaster", Action = "Download" })/?file=" + result;
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+
+         });
+
+
+        
+         $('#DownloadPdf').on('click', function () {
+           
+            $.ajax({
+                type: "POST",
+                url: "/ClientMaster/ClientMasterPdf",
+                contentType: "application/json",
+                //data: '{"BranchId":"' + document.getElementById("DDHub").value + '"}',
+                success: function (result, status, xhr) {
+                  
+                   window.location.href = "@Url.RouteUrl(new
+                             { Controller = "ClientMaster", Action = "Downloadpdf" })/?file=" + result;
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+
+        });
+
+    });
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+</script>
+<section class="sectionBM1">
+    <center>
+        <h3>
+            <b style="color:#1d4769;font-size:16PX;">CLIENT MASTER</b>
+        </h3>
+    </center>
+    <div class="navbarTwo">
+        <strong>EXISTING CLIENTS</strong>
+        <div class="eps-pdf">
+            <i class="fa fa-file-excel-o excel" style="font-size:15px" id="DownloadExcel"></i>
+            <i class="fa fa-file-pdf-o pdf" style="font-size:15px" id="DownloadPdf"></i>
+        </div>
+
+    </div>
+    <br />
+    <div class="row branch">
+        
+        <span class="search">
+            <input type="text" id="myInput"  placeholder="Search">
+            <span class="fa fa-search"></span>
+        </span>
+        <a href="#"><b style="color:#00778e;text-decoration: underline;" id="ViewAll">VIEW ALL</b></a>
+        <a href="#" class="w3-button  w3-border  w3-round-large sub-btn" style="float:right;" id="Add_New">Add New</a>
+    </div>
+    <div class="row search-font">
+        <p>You may search on (Client Name/Contact Person/Contact Person Mobile Number/Contact Person EmailId)</p>
+    </div>
+    <div style="overflow-x:auto;">
+        <table class="tableOne">
+            <thead>
+                <tr>
+
+                    <th style="width:5%" scope="col">SlNo</th>
+                    <th hidden>CLIENTID</th>
+                    <th>CLIENT NAME</th>
+                    <th>CONTACT PERSON </th>
+                    <th>CONTACT PERSON MOBILE NUMBER</th>
+                    <th>CONTACT PERSON EMAILID</th>
+                    <th colspan="2" style="width:5%;">ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody id="myTable" style="background-color:white">
+                @{int SlNo = 0;}
+                @foreach (var d in ViewBag.details)
+                {
+                    SlNo = SlNo + 1;
+                    <tr>
+                        <td scope="row">@SlNo</td>
+                        <td id="nr" hidden>@d.ClientId</td>
+                        <td id="ClientName">@d.ClientName</td>
+                        <td id="AuthPerName">@d.AuthPersonName</td>
+                        <td id="AuthContactNo">@d.AuthPersonContactNo</td>
+                        <td id="AuthMailId">@d.AuthPersonEmailId</td>
+                        <td name="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="document.getElementById('id10').style.display='block'"></i> </td>
+                        <td name="Delete">  <i class="fa fa-times-circle-o" aria-hidden="true"></i></td>
+
+                        @*<td name="Edit"><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" id="one" data-title="Edit" name="editbtn"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                            <td name="Delete"> <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete"><span class="glyphicon glyphicon-trash"></span></button></p></td>*@
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    @*------client edit popupo----------*@
+    <div id="id10" class="w3-modal">
+        <div class="w3-modal-content device-mod">
+            <header class="w3-container"  style="background: #00778e;
+    color: white;">
+                <span onclick="document.getElementById('id10').style.display='none'"
+                      class="w3-button w3-display-topright modal-close" style="background: white !important;
+    color: black !important;">&times;</span>
+                <h5>CLIENT DETAILS</h5>
+            </header>
+            <div class="w3-container modal-inner-pd">
+                <div class="w3-row" style="border-radius:5px;padding: 2% 2%;">
+                    <div class="w3-col s12  w3-center">
+                        <input type="hidden" id="HdnEdit_Insert" hidden />
+                       
+                        <table class="branch-tb">
+
+                            <tr style="text-align:left;">
+                                <th><label for="Client">Client Name</label></th>
+                                <td>
+                                    <input type="text" id="ClientNme_EditTxt" style="width:100%;" class="form-control1 input">
+                                    <input type="hidden" id="ClientId_Hdn" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label>Client Mobile Number</label>
+                                </th>
+                                <td>
+
+                                    <input class="form-control form-control1 input" name="PhoneNo" id="clientPhno" type="text" autocomplete="off"  onkeypress="return isNumberKey(event)" style="width:100%;"  required />
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label>Client Address</label>
+                                </th>
+                                <td>
+                                    <input class="form-control form-control1 input" id="clientAddr" type="text"   style="width:100%;" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label>Contact Person </label>
+                                </th>
+                                <td>
+                                    <input class="form-control form-control1 input" id="AuthPerName_Edit" type="text"  style="width:100%;"   required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label> Contact Person Mobile Number</label>
+                                </th>
+                                <td>
+                                    <input class="form-control form-control1 input" id="AuthPerNo" type="text"  onkeypress="return isNumberKey(event)" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label>Contact Person EmailId</label>
+                                </th>
+                                <td>
+
+                                    <input class="form-control form-control1 input" id="AuthMailId_Edit" type="text"   required />
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br />
+
+                        <button class="w3-button   w3-round-large " id="Insert_UpdateBtn" style="background:#00778e;color:white">Submit</button>
+
+                        <br />
+                    </div>
+
+                </div>
+
+                <br />
+            </div>
+
+        </div>
+    </div>
+
+    @*---------delete popup-------------*@
+    <div id="id11" class="w3-modal">
+        <div class="w3-modal-content device-mod">
+            <header class="w3-container" style="background:#00B8BA;color:white;">
+                <span onclick="document.getElementById('id11').style.display='none'"
+                      class="w3-button w3-display-topright modal-close">&times;</span>
+                <h5><b>Close</b></h5>
+            </header>
+            <div class="w3-container">
+                <div class="w3-row">
+                    <div class="w3-col s12  w3-center">
+                        <h5>Are you sure you want to delete?</h5>
+                        <button class="w3-button  w3-border  w3-round-large sub-btn" id="Yes_Delete">Yes</button>  <button class="w3-button  w3-border  w3-round-large sub-btn" onclick="document.getElementById('id11').style.display='none'">No</button>
+
+                        <br />
+                    </div>
+
+                </div>
+
+                <br />
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    function validateClientMaster() {
+       
+        var Clientname;
+        Clientname = document.getElementById("ClientNme_EditTxt").value;
+
+
+        if (Clientname.length <= 1) {
+            alert("*Enter Client Name correctly");
+            return false;
+        }
+       
+
+        var phono;
+        phono = document.getElementById("clientPhno").value;
+       
+        var no = /[0-9]/;
+        if (phono == "" || phono.length < 10) {
+            alert("*phoneno should be correct");
+            return false;
+        }
+        if (!no.test(phono)) {
+            alert("*characters are not allowed");
+            return false;
+        }
+
+
+        var addrs;
+        addrs = document.getElementById("clientAddr").value;
+        if (addrs == "" || addrs.length <= 1) {
+            alert("*enter addres correctly");
+            return false;
+        }
+
+         var AuthpersonName;
+        AuthpersonName = document.getElementById("AuthPerName_Edit").value;
+
+
+        if (AuthpersonName == "" || AuthpersonName.length <= 1) {
+            alert("*enter Authonticate Person Name correctly");
+            return false;
+        }
+        var num = /[0-9]/;
+        if (num.test(AuthpersonName)) {
+            alert("*Authonticate Person Name should not have number");
+            return false;
+        }
+
+
+         var phonoContactPer;
+        phonoContactPer = document.getElementById("AuthPerNo").value;
+       
+        var no = /[0-9]/;
+        if (phonoContactPer == "" || phonoContactPer.length < 10) {
+            alert("*phoneno should be correct");
+            return false;
+        }
+        if (!no.test(phonoContactPer)) {
+            alert("*characters are not allowed");
+            return false;
+        }
+
+
+
+        var mailid;
+        mailid = document.getElementById("AuthMailId_Edit").value;
+        if (mailid == "" || mailid.length <= 1) {
+            alert("*enter mailid correctly");
+            return false;
+        }
+
+
+       
+
+    }
+</script>
+
+

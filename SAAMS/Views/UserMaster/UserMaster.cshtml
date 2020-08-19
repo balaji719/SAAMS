@@ -1,0 +1,274 @@
+﻿
+@{
+    ViewBag.Title = "UserMaster";
+    Layout = "~/Views/Shared/MainMenu.cshtml";
+}
+
+<link href="~/Content/Main.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="https://facetwp.com/wp-content/plugins/facetwp/assets/vendor/fSelect/fSelect.css" rel="stylesheet" />
+<script src="https://facetwp.com/wp-content/plugins/facetwp/assets/vendor/fSelect/fSelect.js"></script>
+<link href="~/Content/Responsive.css" rel="stylesheet" />
+<section class="sectionBM1">
+    <center>
+        <h3>
+            <b style="color:#1d4769;font-size:16PX;">USER MASTER</b>
+        </h3>
+    </center>
+    <div class="navbarTwo">
+        <strong>EXISTING USER</strong>
+        <div class="eps-pdf">
+            <i class="fa fa-file-excel-o excel" style="font-size:15px"></i>
+            <i class="fa fa-file-pdf-o pdf" style="font-size:15px"></i>
+        </div>
+    </div>
+    <br />
+    <div class="row branch">
+
+        <span class="search">
+            <input type="text" id="myInput" placeholder="Search">
+            <span class="fa fa-search"></span>
+        </span>
+        <a href="#"><b style="color:#00778e;text-decoration: underline;">VIEW ALL</b></a>
+        <a href="#" class="w3-button   w3-round-large sub-btn" style="float:right;" onclick="document.getElementById('id02').style.display='block'">Add New</a>
+    </div>
+    <div class="row search-font">
+        <p>You may search on (Name/Proﬁle/Branch/email id)</p>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="tableOne">
+                <tr class="trBM1">
+                    <th>NO.</th>
+                    <th>NAME</th>
+                    <th>PROFILE</th>
+                    <th>BRANCH NAME</th>
+
+                    <th>EMAIL</th>
+                    <th colspan="2">ACTIONS</th>
+                </tr>
+                <tbody id="myTable">
+                    <tr class="trBM1">
+                        <td>01</td>
+                        <td>Alfreds Futterkiste</td>
+                        <td>Maria Anders</td>
+                        <td>Germany</td>
+                        <td>Alfreds Futterkiste</td>
+                        <td name="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="document.getElementById('id02').style.display='block'"></i></td>
+                        <td name="Delete"><i class="fa fa-times-circle-o" aria-hidden="true"></i> </td>
+
+                    </tr>
+                    <tr class="trBM1">
+                        <td>02</td>
+                        <td>Alfreds Futterkiste</td>
+                        <td>Maria Anders</td>
+                        <td>Germany</td>
+                        <td>Alfreds Futterkiste</td>
+
+                        <td name="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="document.getElementById('id02').style.display='block'"></i></td>
+                        <td name="Delete"><i class="fa fa-times-circle-o" aria-hidden="true"></i> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="id02" class="w3-modal">
+            <div class="w3-modal-content device-mod">
+                @*<br /><br />*@
+                <header class="w3-container" style="background: #00778e;
+    color: white;">
+                    <span onclick="document.getElementById('id02').style.display='none'"
+                          class="w3-button w3-display-topright modal-close" style="background: white !important;
+    color: black !important;">&times;</span>
+                    <h5>USER DETAILS</h5>
+
+                    @*<button class="user-details-head w3-button">USER DETAILS</button>*@
+                    @*<a class=" w3-right w3-button" style="text-decoration:underline;">Add New User</a>*@
+                </header>
+                <div class="w3-container res-modal" style="padding: 0.01em 73px !important;">
+
+                    <div class="w3-row" style="border-radius:5px;padding: 2% 2%;">
+                        <div class="w3-col s12  w3-center">
+                            <table>
+                                <tr>
+                                    <th><label for="Name">Name</label></th>
+                                    <th>
+                                        <input type="text" id="Name" name="Name" style="width:100%;" class="form-control1 input">
+
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th><label for="User Name">User Name</label></th>
+                                    <th>
+                                        <input type="text" id="UserName" name="User Name" style="width:100%;" class="form-control1 input">
+
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th><label for="password">Password</label></th>
+                                    <th>
+                                        <input type="password" id="Password" name="Password" style="width:100%;" class="form-control1 input">
+                                    </th>
+
+                                </tr>
+                                <tr>
+                                    <th><label for="Mobile Number">Mobile Number</label></th>
+                                    <th>
+                                        <input type="text" id="MobileNumber" name="Mobile Number" style="width:100%;" class="form-control1 input">
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th><label for="Email">Email</label></th>
+                                    <th>
+                                        <input type="email" id="Email" name="Email" style="width:100%;" class="form-control1 input">
+                                    </th>
+                                </tr>
+                                @*<tr>
+                                    <th><label for="Multiple">Multiple</label></th>
+                                    <th>
+                                        <select id="fselectMulti" class="my-select-box form-control1" multiple="multiple" >
+                                            <optgroup label="MenuLst">
+                                                <option value="me">Branch Delete</option>
+                                                <option value="ny">Branch Edit</option>
+                                                <option value="nj">Branch Insert</option>
+                                                <option value="vt">Branch Show</option>
+                                            </optgroup>
+
+                                        </select>
+                                    </th>
+                                </tr>*@
+                                <tr>
+                                    <th><label for="Profile">Profile</label></th>
+                                    <th>
+                                        <select id="Profile" name="Profile" class="form-control1">
+                                            <option value="">Bengalore</option>
+                                            <option value="">Davanageri</option>
+
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th><label for="Client">Client</label></th>
+                                    <th>
+                                        <select id="Client" name="Client" class="form-control1">
+                                            <option value="">Bengalore</option>
+                                            <option value="">Davanageri</option>
+
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th><label for="Customer">Customer</label></th>
+                                    <th>
+                                        <select id="Customer" name="Customer" class="form-control1">
+                                            <option value="">Bengalore</option>
+                                            <option value="">Davanageri</option>
+
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th><label for="Branch">Branch</label></th>
+                                    <th>
+                                        <select id="Branch" name="Branch" class="form-control1">
+                                            <option value="">Bengalore</option>
+                                            <option value="">Davanageri</option>
+
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th><label for="Cluster">Cluster</label></th>
+                                    <th>
+                                        <select id="Cluster" name="Cluster" class="form-control1">
+                                            <option value="">Bengalore</option>
+                                            <option value="">Davanageri</option>
+
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th><label for="Site">Site</label></th>
+                                    <th>
+                                        <select id="Site" name="site" class="form-control1">
+                                            <option value="">Bengalore</option>
+                                            <option value="">Davanageri</option>
+
+                                        </select>
+                                    </th>
+                                </tr>
+
+
+                            </table>
+                            <br />
+                            <button class="w3-button  w3-round-large" style="    background: #00778e;
+    color: white;">
+                                Submit
+                            </button>
+                  
+
+
+
+                        </div>
+
+                    </div>
+                    <br />
+
+                </div>
+
+            </div>
+
+        </div>
+</section>
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    $(function() {
+  $('.my-select-box').fSelect();
+
+  $('#ClearSelect').click(function() {
+    $('#fselectMulti option:selected').removeAttr('selected');
+
+    $('.my-select-box').prev(".fs-dropdown").find(".fs-options .fs-option").each(function() {
+      $(this).removeClass('selected', false);
+    });
+
+    console.log($('#fselectMulti').val());
+    $('.fs-label').html('Select some options');
+  })
+  $('#CheckSelect').click(function(){
+    console.log($('#fselectMulti').val());
+  })
+});
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

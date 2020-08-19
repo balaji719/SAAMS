@@ -1,0 +1,566 @@
+﻿/*-------------Login------------------------*/
+
+/*----------------Login css started------*/
+.log-image {
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    background-image: url('../Image/website_template_background.png');
+}
+
+.login-form-1 {
+    background-color: #00b8ba;
+    padding: 5%;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.log .row {
+    padding: 13%;
+}
+
+.form-group label {
+    color: #007bff;
+}
+
+.log-rem {
+    float: right;
+}
+
+    .log-rem input {
+        vertical-align: middle;
+    }
+
+.login-form-1 h3 {
+    text-align: center;
+    color: #333;
+}
+
+.login-form-2 {
+    padding: 5%;
+    border-radius: 0px 10px 10px 0px;
+    background: #ffffff;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-form-1 h5 {
+    color: #fff;
+}
+
+.login-container form {
+    padding: 10%;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 25%;
+    border: 1px solid white;
+    height: auto;
+    background: white;
+    border-radius: 50%;
+}
+
+.login-form-1 .form-group span {
+    color: white;
+    font-size: 20px;
+    vertical-align: middle;
+    padding-left: 7%;
+}
+
+.btnSubmit {
+    width: 50%;
+    border-radius: 7px;
+    padding: 2.5% 0%;
+    border: none;
+    cursor: pointer;
+}
+
+.web-img {
+    width: 40%;
+}
+
+.login-form-1 .btnSubmit {
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+
+.login-form-2 .btnSubmit {
+    font-weight: 600;
+    color: white;
+    background: #6edff5;
+}
+
+.login-form-2 .ForgetPwd {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-form-1 .ForgetPwd {
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/*------------------header css-------------*/
+
+/*-------------------Responsive Header-------------*/
+@media screen and (max-width: 300px) {
+    .header a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+
+    .header-right {
+        float: none;
+    }
+}
+
+
+
+/*----------------Main Menu-----------------*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f4f7ed;
+  
+}
+
+/*.navbarOne {
+    overflow: hidden;
+    margin: 10px 10%;
+}
+
+    .navbarOne a {
+        float: left;
+        font-size: 16px;
+        color: white;   
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+    .dropdown .dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: #00B8BA;
+        padding: 14px 16px;
+        background-color: inherit;
+        font: inherit;
+        margin: 0;
+    }
+
+.dropbtn1 {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+.navbarOne a:hover, .dropdown:hover .dropbtn {
+    background-color: #6EDFF5;
+    cursor: pointer;
+    color: white;
+}
+
+.navbarOne a:hover, .dropdown:hover .dropbtn1 {
+    background-color: #00B8BA;
+    cursor: pointer;
+    color: white;
+}
+
+.columnmodule {
+    width: 100% !important;
+    left: 0 !important
+}
+
+.dropdown:hover .columnmodule {
+    display: flex !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #00B8BA;
+    width: 100%;
+    left: 0;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content1 {
+    display: none;
+    position: absolute;
+    background-color: #6EDFF5;
+    width: 100%;
+    left: 0;
+}
+
+.dropdown1:hover .dropbtn1 {
+    background-color: #6EDFF5 !important;
+}
+
+.dropdown1:hover .dropdown-content1 {
+    display: block;
+}
+
+
+.firstmenu a:hover {
+    background-color: #6EDFF5;
+
+/* Create equal columns that floats next to each other  dropdowns*
+.column1 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background-color: #6EDFF5;
+    height: 250px;
+}
+
+    .column1 a {
+        float: none;
+        color: white;
+        padding: 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+        .column1 a:hover {
+            background-color: #00B8BA;
+        }
+
+/* Clear floats after the columns *
+.row:after {
+    content: "";
+
+    display: table;
+    clear: both;
+}
+/* Support button *
+.supportbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: #00B8BA;
+    padding: 14px 16px;
+    background-color: #6EDFF5;
+    font: inherit;
+    margin: 0;
+    float: right;
+    cursor: pointer;
+}
+
+/*------------------- Branch Master -------------------------*
+
+/*existing model*
+.navbarTwo {
+    background-color: #00B8BA;
+    padding: 5px 3%;
+    color: white;
+    font-size: 20px;
+}*/
+/*section color-profile Branch Master(Main Body)*/
+.sectionBM1 {
+    margin: 0 15px;
+    background: white;
+    padding: 2px 17px;
+}
+    .sectionBM1 center h3{
+        margin:0px;
+    }
+    .device-mod header h5 {
+        font-size: 15px !important;
+        text-align: center;
+        FONT-WEIGHT: 600;
+    }
+/*TableOne Branch Master*/
+.branch span,a{
+    font-size:13px;
+}
+.tableOne {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.navbarTwo {
+    background-color: #00778e;
+    padding: 9px 3%;
+    color: white;
+    /* margin: 0px; */
+    font-size: 13px;
+}
+
+
+.tableOne td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 4px;
+    font-size:13px;
+    color: rebeccapurple;
+}
+
+.tableOne th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 4px;
+    color: white;
+    font-size:13PX;
+    background-color: #00778e;
+}
+
+.tableOne tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+
+/*<--------------------------------- user master--------------->*/
+.sectionBM1 h1 {
+    margin: 0px;
+}
+
+
+textarea {
+    width: 90%;
+    padding: 0px 0px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    height: 80px;
+    font-size: 13px !important;
+    max-width: 500px;
+    font-weight: 800 !important;
+    margin-left: 16% !important;
+    resize: none;
+}
+
+
+.device-mod {
+    width: 40% !important;
+}
+
+.w3-center select {
+    width: 100%;
+}
+
+.user-modal {
+    padding: 5px 29px !important;
+}
+
+.sub-btn {
+    /*margin: -5px;*/
+    background: #00778e !important;
+    color: white !important;
+    padding: 6px 22px !important;
+    vertical-align: inherit;
+    font-size: 13px;
+    font-weight: 900;
+    border: none !important;
+}
+
+.user-details-head {
+    border-radius: 4px 4px 0px 0px;
+    text-align: center;
+    padding: 3px 3px;
+    cursor: pointer;
+    color: white !important;
+    width: 41%;
+    margin-bottom: 0px;
+    FONT-SIZE: 13PX;
+    BACKGROUND: #00778e !IMPORTANT;
+}
+
+.modal-close {
+    padding: 2px 5px !important;
+    right: 5px !important;
+    top: 6px !important;
+    color: white !important;
+    WIDTH: 27PX;
+    border-radius: 20px;
+}
+
+.emp-bulk {
+    display: table;
+    margin: 0 auto;
+}
+
+.pad-modal {
+    padding-top: 30px !important;
+}
+.site-modal-height {
+    overflow-y: scroll;
+    max-height: 448px;
+}
+/*<-------------search bar----------->*/
+.row #myInput {
+    border-radius: 15px;
+    padding: 5px 4px;
+    border: 1px solid #ddd;
+}
+
+.search {
+    position: relative;
+    color: #aaa;
+    font-size: 16px;
+    width: 250px;
+    /*z-index: -1;*/
+}
+
+    .search input {
+        padding-left: 5px;
+        width: 200px;
+        height: 32px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+    }
+
+    .search input {
+        padding-right: 32px;
+    }
+
+    .search .fa-search {
+        position: absolute;
+        top: -7px;
+        left: 169px;
+        right: 0px;
+        /*z-index: 10;*/
+    }
+.search-font p {
+    font-size: 13px;
+    color: #00778e;
+    font-weight: 700;
+}
+    /*<-------------------user master mutiple select ------------->*/
+.fs-wrap {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 1;
+    width: 228px !important;
+}
+    .fs-wrap.multiple .fs-option.selected .fs-checkbox i {
+        background-color: #006e70 !important;
+        border-color: transparent;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAYAAAD+Bd/7AAAABHNCS…AfHvzAHjOKNzhiQ42IDFXCDivaaxAJd0xYshT3QqBxqnxeHvhunpu23xnmAAAAAElFTkSuQmCC);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+.fs-dropdown {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width: 228px !important;
+    margin-top: 5px;
+    max-height: 94px;
+    overflow: hidden auto;
+    z-index: 1000;
+}
+
+/*<--------------client master ----------->*/
+.branch-tb  tr,th{
+    text-align:left;
+}
+/*<----------------site----------->*/
+.site {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3% 9%;
+}
+/*<-------------designation master------------ >*/
+.Desi-scroll{
+    overflow-x:scroll;
+    overflow-y:scroll;
+    max-height:300px;
+}
+/*<------------MANAGE DEVICE-------- >*/
+.modal-inner-pd1{
+    padding:1.01em 41px !important;
+}
+.mod-width{
+    width:63% !important;
+}
+.radio {
+    display: inline-block;
+    vertical-align: middle;
+}
+.fa fa-pencil-square-o {
+    cursor:pointer !important;
+}
+.form-control1 {
+    margin-left: 16%;
+    padding: 4px;
+    color: black;
+  width: 90% !important;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.input {
+    padding: 2px !important;
+}
+
+.modal-inner-pd1 {
+    padding: 0.01em 20px !important;
+}
+/*<------------------log out------------>*/
+
+.logout-hover {
+    position: relative;
+    right: 35px !important;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.w3-dropdown-hover {
+    right: -77%;
+}
+
+.w3-dropdown-content {
+    cursor: auto;
+    color: #000;
+    background-color: #fff;
+    display: none;
+    position: absolute;
+    min-width: 320px !important;
+    right: 43px;
+    margin: 0;
+    top: 92% !important;
+    padding: 0;
+    z-index: 1;
+}
+
+.w3-dropdown-hover img {
+    width: 37%;
+}
+.emp-add-btn {
+    font-size: 18px;
+    padding: 3px 11px;
+    border: none;
+    position: absolute;
+    left: auto;
+    right: 48%;
+    border-radius: 50px;
+    top: 78%;
+    color: white;
+    background: #00778e;
+}
+

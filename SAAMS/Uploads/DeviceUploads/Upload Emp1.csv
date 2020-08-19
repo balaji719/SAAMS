@@ -1,0 +1,3 @@
+EmployeeCode,ClientId,Customer,Branch,ClusterId,SiteId,EmployeeName,DesignationId,EnrollmentAuthority,Mobile,status,IdentityProffType,identyproofNo
+9050036393,1,1,1,1,1,Arun Kumar,1,Y,9050036393,,,
+7840883530,1,1,1,1,1,Pankaj Solanki,1,N,7840883530,,,
